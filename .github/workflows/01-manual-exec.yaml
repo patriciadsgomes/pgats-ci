@@ -16,9 +16,6 @@ jobs:
     e2e-tests:
         # maquina onde o job vai rodar
         runs-on: ubuntu-latest
-        defaults:
-            run:
-                working-directory: pgats-ci
 
         # passos do job
         steps:
