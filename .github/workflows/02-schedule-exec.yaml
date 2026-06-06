@@ -1,58 +1,50 @@
-# CI de Nivel 02 - Execucao agendada
+# CI de Nível 02 - Execução Agendada
 
 # nome da pipeline
-name: "Execucao Agendada"
+name: "Scheduled Execution"
 
 # gatilhos / triggers - regras de disparo
+# gatilho manual = workflow_dispatch
 # gatilho agendado = schedule
 
 on:
-    schedule:
-        # Executa aos sabados as 00:03 UTC.
-        # Campos: minuto, hora, dia do mes, mes, dia da semana.
-        - cron: "3 0 * * 6"
+  workflow_dispatch:
+  schedule:
+    # cronograma de execução
+    # 1 - minuto, 2 - hora, 3 dia do mês, 4 - mês, 5 - dia da semana
+    - cron: '*/6 * * * *'
 
-# tarefas dentro da pipeline = jobs
+
+#tarefas dentro da pipeline = jobs
 
 jobs:
-    # nome do job
+    #nome do job
     e2e-tests:
         # maquina onde o job vai rodar
-        runs-on: self-hosted
-        defaults:
-            run:
-                working-directory: pgats-ci
+        runs-on: ubuntu-latest
 
         # passos do job
         steps:
             # clone do projeto
             - uses: actions/checkout@v4
 
-            # instalacao do node
+            # instalção do node
             - uses: actions/setup-node@v4
               with:
                   node-version: 24.x
 
-            # instalacao do Yarn
+            # instalação do Yarn
             - name: Instalando Yarn
               run: npm install -g yarn
-
-            # instalacao das dependencias
-            - name: Instalando dependencias
+            
+            #   instalação das dependências
+            - name: Instalando dependências
               run: yarn
-
-            # instalacao dos Browsers do Playwright
+            
+            # instalação dos Browsers do Playwright
             - name: Instalando Browsers do Playwright
               run: yarn playwright install
-
+            
             # executar os testes e2e
             - name: Executando testes e2e
               run: yarn run e2e
-
-            # upload do relatorio HTML gerado pelo Playwright
-            - name: Upload do relatorio Playwright
-              uses: actions/upload-artifact@v4
-              if: always()
-              with:
-                  name: playwright-report
-                  path: pgats-ci/playwright-report/
