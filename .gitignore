@@ -6,4 +6,12 @@ reports
 /blob-report/
 /playwright/.cache/
 results.xml
-/pgats-ci/
+pgats-ci/node_modules/
+pgats-ci/.stryker-tmp/
+pgats-ci/reports/
+pgats-ci/test-results/
+pgats-ci/playwright-report/
+pgats-ci/blob-report/
+pgats-ci/playwright/.cache/
+pgats-ci/results.xml
+pgats-ci/actions-runner/
