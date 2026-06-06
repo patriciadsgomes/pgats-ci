@@ -12,10 +12,10 @@ on:
 #tarefas dentro da pipeline = jobs
 
 jobs:
-    #nome do job
+    # nome do job
     e2e-tests:
         # maquina onde o job vai rodar
-        runs-on: self-hosted
+        runs-on: ubuntu-latest
 
         # passos do job
         steps:
