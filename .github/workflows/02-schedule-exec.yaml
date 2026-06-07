@@ -9,10 +9,15 @@ name: 'N2 - Execução Agendada'
 
 on:
   workflow_dispatch:
+
   schedule:
     # cronograma de execução
     # 1 - minuto, 2 - hora, 3 dia do mês, 4 - mês, 5 - dia da semana
     - cron: '0 0 * * 5'
+
+  push:
+    branches:
+      - master
 
 defaults:
   run:
@@ -52,10 +57,9 @@ jobs:
       - name: Executando testes e2e
         run: yarn run e2e
 
-      # upload do relatório HTML gerado pelo Playwright
-      - name: Upload do relatório Playwright
+      - name: Salvando relatórios de testes
         uses: actions/upload-artifact@v4
-        if: always()
+        if: ${{ always() }}
         with:
-          name: playwright-report
-          path: playwright-report/
+          path: ./playwright-report
+          name: Relatório de Testes E2E
